@@ -8,6 +8,7 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="leaderboard.php">Leaderboard</a></li>
+            <li><a href="about.php">about</a></li>
         </ul>
     </nav>
     <div id=#game-container>
