@@ -1,7 +1,6 @@
 
 body {
-    background-color: #000000; 
-    color: #000000;
+    background-color: #b5b5b5; 
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -9,10 +8,37 @@ body {
     margin: 0;
 }
 
-game-container {
+#game-container {
     width: 400px;
     height: 600px;
     background-color: #000000;
-    border: 2px solid #ecf0f1;
+    border: 20px solid #000000;
     margin-top: 50px;
+}
+
+
+.navbar {
+    width: 100%;
+    background-color: #292929; 
+    padding: 10px 0;
+}
+
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar li {
+    margin: 10px;
+}
+
+.navbar a {
+    color: #8457ff;
+    text-decoration: none;
+    font-weight: bold;
 }
