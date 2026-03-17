@@ -32,7 +32,11 @@ function update() {
         bird.y = 300;
         bird.velocity = 0;
 
-        // Optional: Alert the player (this pauses the game)
+        // CLEAR THE OBSTACLES (The Fix!)
+        pipes = []; 
+        frameCount = 0;
+
+        // Optional: Alert the player
         alert("Game Over! Try again.");
     }
 
@@ -80,8 +84,24 @@ function update() {
         ctx.fillStyle = "#2ecc71"; // Minimalist Green
         ctx.fillRect(pipes[i].x, pipes[i].y, pipes[i].width, pipes[i].height);
 
+        // 4. COLLISION DETECTION
+        if (
+            bird.x < pipes[i].x + pipes[i].width &&  
+            bird.x + bird.size > pipes[i].x &&       
+            bird.y < pipes[i].y + pipes[i].height && 
+            bird.y + bird.size > pipes[i].y          
+        ) {
+            // CRASH! Reset the game
+            bird.y = 300;
+            bird.velocity = 0;
+            pipes = []; // Clears the pipes
+            frameCount = 0; // Resets the spawn timer
+            alert("Crash! You hit a pipe.");
+        } // <--- THIS IS THE MISSING BRACKET!
+
         // 3. Memory Cleanup: Remove pipes that leave the screen
-        if (pipes[i].x + pipes[i].width < 0) {
+        // We added `pipes[i] &&` to prevent the "Ghost Pipe" crash!
+        if (pipes[i] && pipes[i].x + pipes[i].width < 0) {
             pipes.splice(i, 1);
             i--; // Adjust index so we don't skip the next pipe
         }
