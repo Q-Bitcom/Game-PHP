@@ -1,4 +1,41 @@
 <?php
+// ==========================================
+// 1. THE SCORE SAVER (The "Background API" Hat)
+// ==========================================
+// Check if this is a background POST request from your JavaScript fetch()
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['score'])) {
+    
+    // Clean the incoming data
+    $name = htmlspecialchars($_POST['name']);
+    $score = (int)$_POST['score'];
+
+    // Read the current leaderboard
+    $jsonData = file_get_contents('data/leaderboard.json');
+    $leaderboard = json_decode($jsonData, true);
+
+    // Add the new score to the array
+    // (We will default coins to 0 for now)
+    $leaderboard[] = [
+        'name' => $name,
+        'score' => $score,
+        'coins' => 0 
+    ];
+
+    // Save the updated array back into the JSON file
+    // JSON_PRETTY_PRINT keeps the file readable for humans!
+    file_put_contents('data/leaderboard.json', json_encode($leaderboard, JSON_PRETTY_PRINT));
+
+    // Send a success message back to the JavaScript console
+    echo "Success! Saved $score for $name.";
+    
+    // CRITICAL: Stop the file here so we don't send the HTML table to the game!
+    exit; 
+}
+
+
+// ==========================================
+// 2. THE PAGE VIEWER (The "Webpage" Hat)
+// ==========================================
 
 // 1. Get the raw text from the JSON file
 $jsonData = file_get_contents('data/leaderboard.json');
@@ -8,8 +45,7 @@ $leaderboard = json_decode($jsonData, true);
 
 $sortBy = $_GET['sort'] ?? 'score';
 
-// 2. The Sorting Logic
-// This tells PHP: "Compare Player A and Player B based on their score"
+// 3. The Sorting Logic
 usort($leaderboard, function($a, $b) use ($sortBy) {
     if ($sortBy === 'coins') {
         return $b['coins'] - $a['coins']; // Sort by coins
@@ -54,6 +90,5 @@ usort($leaderboard, function($a, $b) use ($sortBy) {
             </tbody>
         </table>
     </div>
-
 </body>
 </html>

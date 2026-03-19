@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clicky Bird Quest</title>
+    <title>Clicky bird Quest</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>

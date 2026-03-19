@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home - Flappy Bird Clone</title>
+    <title>Home - Clicky bird quest</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
