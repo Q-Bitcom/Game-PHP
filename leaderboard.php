@@ -1,24 +1,22 @@
 <?php
-// ==========================================
-// 1. THE SCORE SAVER (The "Background API" Hat)
-// ==========================================
-// Check if this is a background POST request from your JavaScript fetch()
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['score'])) {
-    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['score'])) {
+
     // Clean the incoming data
     $name = htmlspecialchars($_POST['name']);
     $score = (int)$_POST['score'];
+
+    // Catch the coins! (If no coins are sent, default to 0)
+    $coins = isset($_POST['coins']) ? (int)$_POST['coins'] : 0;
 
     // Read the current leaderboard
     $jsonData = file_get_contents('data/leaderboard.json');
     $leaderboard = json_decode($jsonData, true);
 
     // Add the new score to the array
-    // (We will default coins to 0 for now)
     $leaderboard[] = [
         'name' => $name,
         'score' => $score,
-        'coins' => 0 
+        'coins' => $coins // <--- Put the real variable here!
     ];
 
     // Save the updated array back into the JSON file
